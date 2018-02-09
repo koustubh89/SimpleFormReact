@@ -25,7 +25,13 @@ export class ContentArea extends React.Component {
     constructor() {
         super();
         this.state = ({userList: []});
+        //this.addTolist = this.addTolist.bind(this);
     }
+
+    addTolist() {
+        console.log('add to list called');
+    }
+
     render () {
         return (
             <div className="content-area">
@@ -34,7 +40,7 @@ export class ContentArea extends React.Component {
                 </div>
 
                 <div className="list-view">
-                    <Listview list={this.state.userList}/>
+                    <Listview list={this.state.userList} add={this.addTolist.bind(this)}/>
                 </div>
             </div>
         );
@@ -42,14 +48,16 @@ export class ContentArea extends React.Component {
 }
 
 export class FormContent extends React.Component {
-    
+    constructor() {
+        super();
+    }
     addUserToList () {
         console.log('adding the user to list');
-        //this.props.list = "dummy";
+        this.props.add();
     }
     render () {
         return (
-            <div className="sub-content-area" style={{float: 'left'}}>this is the form content
+            <div className="sub-content-area" style={{float: 'left', borderRight: '2px solid grey', padding: '30px 40px'}}>this is the form content
                 <form>
                     <h1>Enter user details</h1>
 
@@ -59,7 +67,10 @@ export class FormContent extends React.Component {
                     <InputField fieldName="age" />
                     <InputField fieldName="contact number" />
 
-                    <input type="button" value="add" onClick={this.addUserToList}/>
+                    <div style={{clear: 'both', margin: '0 auto', padding: '10px 0' }}>
+                        <input type="button" value="add" onClick={this.addUserToList.bind(this)} style={{width: '200px'}}/>
+                    </div>
+                        
                 </form>
             </div>
         );
@@ -85,7 +96,7 @@ export class InputField extends React.Component {
     }
     render () {
         return (
-            <div className="input-field" style={{clear: 'both'}}>
+            <div className="input-field" style={{clear: 'both', padding: '10px 0'}}>
                 <label style={{float: 'left'}}>Enter {this.props.fieldName} </label>
                 <input style={{float: 'right'}} type="text" name="input-name"/>
             </div>
