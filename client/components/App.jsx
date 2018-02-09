@@ -28,17 +28,19 @@ export class ContentArea extends React.Component {
         this.addTolist = this.addTolist.bind(this);
     }
 
-    addTolist() {
-        console.log('add to list called');
-        //newList = userList.push('first');
-        this.setState({userList: ['first']});
+    addTolist(newElement) {
+        let length = this.state.userList.length;
+        newElement.id = length++;
+        this.setState({ 
+            userList: this.state.userList.concat([newElement])
+        });
     }
 
     render () {
         return (
             <div className="content-area">
                 <div className="form-area">
-                    <FormContent list={this.state.userList} add={this.addTolist.bind(this)}/>
+                    <FormContent list={this.state.userList} add={this.addTolist}/>
                 </div>
 
                 <div className="list-view">
@@ -50,16 +52,27 @@ export class ContentArea extends React.Component {
 }
 
 export class FormContent extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+    }
+    fetchNewUser() {
+        let newUser= {};
+        newUser.name = document.getElementById('name').value;
+        newUser.email = document.getElementById('email').value;
+        newUser.address = document.getElementById('address').value;
+        newUser.age = document.getElementById('age').value;
+        newUser.contact = document.getElementById('contact').value;
+
+        return newUser;
     }
     addUserToList () {
-        console.log('adding the user to list');
-        this.props.add();
+        let newPerson = this.fetchNewUser();
+        //var arrElem = {name: 'second', id: 1};
+        this.props.add(newPerson);
     }
     render () {
         return (
-            <div className="sub-content-area" style={{float: 'left', borderRight: '2px solid grey', padding: '30px 40px'}}>this is the form content
+            <div className="sub-content-area" style={{display: 'inline-block', float: 'left', borderRight: '2px solid grey', padding: '30px 40px'}}>this is the form content
                 <form>
                     <h1>Enter user details</h1>
 
@@ -67,7 +80,7 @@ export class FormContent extends React.Component {
                     <InputField fieldName="email" />
                     <InputField fieldName="address" />
                     <InputField fieldName="age" />
-                    <InputField fieldName="contact number" />
+                    <InputField fieldName="contact" />
 
                     <div style={{clear: 'both', margin: '0 auto', padding: '10px 0' }}>
                         <input type="button" value="add" onClick={this.addUserToList.bind(this)} style={{width: '200px'}}/>
@@ -80,13 +93,25 @@ export class FormContent extends React.Component {
 }
 
 export class Listview extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
     }
     render () {
+
+        var listItems = this.props.list.map(function(item) {
+            return (
+              <li key={item.id} style={{'width': '100%', textAlign: 'left', borderBottom: '1px solid black'}}>
+                <a href="{item.name}">{item.name}</a>
+              </li>
+            );
+          });
+      
         return (
-            <div className="sub-content-area">this is the List view content
-                {this.props.list}
+            <div className="sub-content-area" style={{display: 'inline-block', width: ''}}>
+            <h2>this is the List view content</h2>
+                <ul>
+                    {listItems}
+                </ul>
             </div>
         );
     }
@@ -100,7 +125,7 @@ export class InputField extends React.Component {
         return (
             <div className="input-field" style={{clear: 'both', padding: '10px 0'}}>
                 <label style={{float: 'left'}}>Enter {this.props.fieldName} </label>
-                <input style={{float: 'right'}} type="text" name="input-name"/>
+                <input style={{float: 'right'}} type="text" id={this.props.fieldName} />
             </div>
         );
     }
