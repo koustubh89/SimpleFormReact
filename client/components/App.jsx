@@ -65,10 +65,17 @@ export class FormContent extends React.Component {
 
         return newUser;
     }
+    emptyTextBoxes() {
+        document.getElementById('name').value = '';
+        document.getElementById('email').value = '';
+        document.getElementById('address').value = '';
+        document.getElementById('age').value = '';
+        document.getElementById('contact').value = '';
+    }
     addUserToList () {
         let newPerson = this.fetchNewUser();
-        //var arrElem = {name: 'second', id: 1};
         this.props.add(newPerson);
+        this.emptyTextBoxes();
     }
     render () {
         return (
@@ -95,19 +102,27 @@ export class FormContent extends React.Component {
 export class Listview extends React.Component {
     constructor(props) {
         super(props);
+        // this.delete = this.delete.bind(this);
+        // this.edit = this.edit.bind(this);
+    }
+    edit () { }
+    delete () {
+        console.log('this is delete function');
     }
     render () {
-
+        var self = this;
         var listItems = this.props.list.map(function(item) {
             return (
               <li key={item.id} style={{'width': '100%', textAlign: 'left', borderBottom: '1px solid black'}}>
-                <a href="{item.name}">{item.name}</a>
+                <a href="{item.name}">{item.name}</a> 
+                <span onClick={self.delete.bind(self)} style={{cursor: 'pointer', float: 'right'}}> delete </span>
+                <span onClick={self.edit.bind(self)} style={{float: 'right', paddingRight: '20px'}}> edit </span>
               </li>
             );
           });
       
         return (
-            <div className="sub-content-area" style={{display: 'inline-block', width: ''}}>
+            <div className="sub-content-area" style={{display: 'inline-block'}}>
             <h2>this is the List view content</h2>
                 <ul>
                     {listItems}
