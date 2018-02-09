@@ -115,7 +115,7 @@ export class Listview extends React.Component {
             </div>
         );
     }
-} 
+}
 
 export class InputField extends React.Component {
     constructor(props) {
