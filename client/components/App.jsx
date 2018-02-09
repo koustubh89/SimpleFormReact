@@ -25,22 +25,24 @@ export class ContentArea extends React.Component {
     constructor() {
         super();
         this.state = ({userList: []});
-        //this.addTolist = this.addTolist.bind(this);
+        this.addTolist = this.addTolist.bind(this);
     }
 
     addTolist() {
         console.log('add to list called');
+        //newList = userList.push('first');
+        this.setState({userList: ['first']});
     }
 
     render () {
         return (
             <div className="content-area">
                 <div className="form-area">
-                    <FormContent list={this.state.userList}/>
+                    <FormContent list={this.state.userList} add={this.addTolist.bind(this)}/>
                 </div>
 
                 <div className="list-view">
-                    <Listview list={this.state.userList} add={this.addTolist.bind(this)}/>
+                    <Listview list={this.state.userList}/>
                 </div>
             </div>
         );
