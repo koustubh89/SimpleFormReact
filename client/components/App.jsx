@@ -91,8 +91,7 @@ export class FormContent extends React.Component {
 
                     <div style={{clear: 'both', margin: '0 auto', padding: '10px 0' }}>
                         <input type="button" value="add" onClick={this.addUserToList.bind(this)} style={{width: '200px'}}/>
-                    </div>
-                        
+                    </div>                        
                 </form>
             </div>
         );
@@ -110,13 +109,12 @@ export class Listview extends React.Component {
         console.log('this is delete function');
     }
     render () {
-        var self = this;
-        var listItems = this.props.list.map(function(item) {
+        var listItems = this.props.list.map((item) => {
             return (
               <li key={item.id} style={{'width': '100%', textAlign: 'left', borderBottom: '1px solid black'}}>
                 <a href="{item.name}">{item.name}</a> 
-                <span onClick={self.delete.bind(self)} style={{cursor: 'pointer', float: 'right'}}> delete </span>
-                <span onClick={self.edit.bind(self)} style={{float: 'right', paddingRight: '20px'}}> edit </span>
+                <span onClick={this.delete.bind(this)} style={{cursor: 'pointer', float: 'right'}}> delete </span>
+                <span onClick={this.edit.bind(this)} style={{cursor: 'pointer', float: 'right', paddingRight: '20px'}}> edit </span>
               </li>
             );
           });
