@@ -26,6 +26,30 @@ export class ContentArea extends React.Component {
         super();
         this.state = ({userList: []});
         this.addTolist = this.addTolist.bind(this);
+        this.removeFromList = this.removeFromList.bind(this);
+        this.editElem = this.editElem.bind(this);
+    }
+    editElem(editElemWithId) {
+        // let newlist = this.state.userList;
+        // let index = undefined;     
+        // for(var i = 0; i < newlist.length; i += 1) {
+        //     if(newlist[i]['id'] === editElemWithId.id) {
+        //         index = i;
+        //     } else {
+        //         index = undefined;
+        //     }
+        // }
+        // if (index > -1) {
+
+        // }
+    }
+    removeFromList(removeElemWithId){
+        let newlist = this.state.userList;
+        newlist = newlist.filter((elem) => {
+            return elem.id !== removeElemWithId;
+        });
+        console.log('this is delete function', newlist);
+        this.setState({userList: newlist});
     }
 
     addTolist(newElement) {
@@ -44,7 +68,7 @@ export class ContentArea extends React.Component {
                 </div>
 
                 <div className="list-view">
-                    <Listview list={this.state.userList}/>
+                    <Listview list={this.state.userList} delete={this.removeFromList} edit={this.editElem}/>
                 </div>
             </div>
         );
@@ -101,19 +125,19 @@ export class FormContent extends React.Component {
 export class Listview extends React.Component {
     constructor(props) {
         super(props);
-        // this.delete = this.delete.bind(this);
-        // this.edit = this.edit.bind(this);
     }
-    edit () { }
-    delete () {
-        console.log('this is delete function');
+    edit () { 
+        console.log('this is edit function');        
+    }
+    delete (deleteElemWithId) {
+        this.props.delete(deleteElemWithId);
     }
     render () {
         var listItems = this.props.list.map((item) => {
             return (
               <li key={item.id} style={{'width': '100%', textAlign: 'left', borderBottom: '1px solid black'}}>
                 <a href="{item.name}">{item.name}</a> 
-                <span onClick={this.delete.bind(this)} style={{cursor: 'pointer', float: 'right'}}> delete </span>
+                <span onClick={this.delete.bind(this, item.id)} style={{cursor: 'pointer', float: 'right'}}> delete </span>
                 <span onClick={this.edit.bind(this)} style={{cursor: 'pointer', float: 'right', paddingRight: '20px'}}> edit </span>
               </li>
             );
