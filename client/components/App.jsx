@@ -24,31 +24,34 @@ export class HeaderBar extends React.Component {
 export class ContentArea extends React.Component {
     constructor() {
         super();
-        this.state = ({userList: []});
+        this.state = ({userList: [], currentUser: undefined});
         this.addTolist = this.addTolist.bind(this);
         this.removeFromList = this.removeFromList.bind(this);
         this.editElem = this.editElem.bind(this);
     }
     editElem(editElemWithId) {
-        // let newlist = this.state.userList;
-        // let index = undefined;     
-        // for(var i = 0; i < newlist.length; i += 1) {
-        //     if(newlist[i]['id'] === editElemWithId.id) {
-        //         index = i;
-        //     } else {
-        //         index = undefined;
-        //     }
-        // }
-        // if (index > -1) {
-
-        // }
+        let newlist = this.state.userList;
+        let index = undefined, user = undefined;     
+        for(var i = 0; i < newlist.length; i += 1) {
+            if(newlist[i]['id'] === editElemWithId) {
+                index = i;
+            } else {
+                index = undefined;
+            }
+        }
+        if (index > -1) {
+            user = newlist[index];
+        }
+        //call the child function of form component from here
+        console.log('executing edit from parent');
+        //this.refs.child.bind(this, populateDetailsForEdit);
+        this.setState({userList: this.state.userList, currentUser: user});
     }
     removeFromList(removeElemWithId){
         let newlist = this.state.userList;
         newlist = newlist.filter((elem) => {
             return elem.id !== removeElemWithId;
         });
-        console.log('this is delete function', newlist);
         this.setState({userList: newlist});
     }
 
@@ -64,7 +67,7 @@ export class ContentArea extends React.Component {
         return (
             <div className="content-area">
                 <div className="form-area">
-                    <FormContent list={this.state.userList} add={this.addTolist}/>
+                    <FormContent list={this.state.userList} add={this.addTolist} user={this.state.currentUser}/>
                 </div>
 
                 <div className="list-view">
@@ -79,7 +82,7 @@ export class FormContent extends React.Component {
     constructor(props) {
         super(props);
     }
-    fetchNewUser() {
+    fetchUserDetails() {
         let newUser= {};
         newUser.name = document.getElementById('name').value;
         newUser.email = document.getElementById('email').value;
@@ -96,8 +99,13 @@ export class FormContent extends React.Component {
         document.getElementById('age').value = '';
         document.getElementById('contact').value = '';
     }
+    editUserFromList() {
+        let editPerson = this.fetchUserDetails();
+        this.props.add(editPerson);
+        this.emptyTextBoxes();
+    }
     addUserToList () {
-        let newPerson = this.fetchNewUser();
+        let newPerson = this.fetchUserDetails();
         this.props.add(newPerson);
         this.emptyTextBoxes();
     }
@@ -107,14 +115,16 @@ export class FormContent extends React.Component {
                 <form>
                     <h1>Enter user details</h1>
 
-                    <InputField fieldName="name" />
-                    <InputField fieldName="email" />
-                    <InputField fieldName="address" />
-                    <InputField fieldName="age" />
-                    <InputField fieldName="contact" />
+                    <InputField fieldName="name" value={this.props.user && this.props.user.name}  />
+                    <InputField fieldName="email" value={this.props.user && this.props.user.email}  />
+                    <InputField fieldName="address" value={this.props.user && this.props.user.address}  />
+                    <InputField fieldName="age" value={this.props.user && this.props.user.age}  />
+                    <InputField fieldName="contact" value={this.props.user && this.props.user.contact}  />
 
-                    <div style={{clear: 'both', margin: '0 auto', padding: '10px 0' }}>
-                        <input type="button" value="add" onClick={this.addUserToList.bind(this)} style={{width: '200px'}}/>
+                            <span>{this.props.user && this.props.user.id} </span>
+                    <div style={{clear: 'both', margin: '0 auto', padding: '10px 0'}}>
+                        <input type="button" value="save After edit" onClick={this.editUserFromList.bind(this)} style={{width: '100px'}}/>
+                        <input type="button" value="add" onClick={this.addUserToList.bind(this)} style={{width: '100px'}}/>
                     </div>                        
                 </form>
             </div>
@@ -126,8 +136,9 @@ export class Listview extends React.Component {
     constructor(props) {
         super(props);
     }
-    edit () { 
-        console.log('this is edit function');        
+    edit (editElemWithId) { 
+        console.log('this is edit function');
+        this.props.edit(editElemWithId);              
     }
     delete (deleteElemWithId) {
         this.props.delete(deleteElemWithId);
@@ -138,7 +149,7 @@ export class Listview extends React.Component {
               <li key={item.id} style={{'width': '100%', textAlign: 'left', borderBottom: '1px solid black'}}>
                 <a href="{item.name}">{item.name}</a> 
                 <span onClick={this.delete.bind(this, item.id)} style={{cursor: 'pointer', float: 'right'}}> delete </span>
-                <span onClick={this.edit.bind(this)} style={{cursor: 'pointer', float: 'right', paddingRight: '20px'}}> edit </span>
+                <span onClick={this.edit.bind(this, item.id)} style={{cursor: 'pointer', float: 'right', paddingRight: '20px'}}> edit </span>
               </li>
             );
           });
