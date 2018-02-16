@@ -40,6 +40,7 @@ export class ContentArea extends React.Component {
         for(var i = 0; i < newlist.length; i += 1) {
             if(newlist[i]['id'] === editElemWithId) {
                 index = i;
+                break;                
             } else {
                 index = undefined;
             }
@@ -63,7 +64,7 @@ export class ContentArea extends React.Component {
     addTolist(newElement) {
         let length = this.state.userList.length;
         newElement.id = length++;
-        this.setState({ 
+        this.setState({
             userList: this.state.userList.concat([newElement])
         });
     }
@@ -75,6 +76,7 @@ export class ContentArea extends React.Component {
         for(var i = 0; i < newlist.length; i += 1) {
             if(newlist[i]['id'] === updatedUser.id) {
                 index = i;
+                break;
             } else {
                 index = undefined;
             }
@@ -142,7 +144,7 @@ export class FormContent extends React.Component {
     }
     render () {
         return (
-            <div className="sub-content-area" style={{display: 'inline-block', float: 'left', borderRight: '2px solid grey', padding: '30px 40px'}}>this is the form content
+            <div className="sub-content-area" style={{display: 'inline-block', float: 'left', borderRight: '2px solid grey', padding: '30px 40px'}}>
                 <form>
                     <h1>Enter user details</h1>
 
@@ -152,9 +154,8 @@ export class FormContent extends React.Component {
                     <InputField fieldName="age" value={this.props.user && this.props.user.age}  />
                     <InputField fieldName="contact" value={this.props.user && this.props.user.contact}  />
 
-                    <span>{this.props.user && this.props.user.id} </span>
                     <div style={{clear: 'both', margin: '0 auto', padding: '10px 0'}}>
-                        <input type="button" value="save After edit" onClick={this.updateUser.bind(this)} style={{width: '100px'}}/>
+                        <input type="button" value="save After edit" disabled={!this.props.user.id} onClick={this.updateUser.bind(this)} style={{width: '100px'}}/>
                         <input type="button" value="add" onClick={this.addUserToList.bind(this)} style={{width: '100px'}}/>
                     </div>                        
                 </form>
@@ -186,8 +187,8 @@ export class Listview extends React.Component {
           });
       
         return (
-            <div className="sub-content-area" style={{display: 'inline-block'}}>
-            <h2>this is the List view content</h2>
+            <div className="sub-content-area" style={{display: 'inline-block', float: 'left', padding: '30px 40px'}}>
+                <h1>List view content</h1>
                 <ul>
                     {listItems}
                 </ul>
