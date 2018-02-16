@@ -63,7 +63,7 @@ export class ContentArea extends React.Component {
 
     addTolist(newElement) {
         let length = this.state.userList.length;
-        newElement.id = length++;
+        newElement.id = length + 1;
         this.setState({
             userList: this.state.userList.concat([newElement])
         });
@@ -143,6 +143,12 @@ export class FormContent extends React.Component {
         this.emptyTextBoxes();
     }
     render () {
+        let buttonMarkup = undefined;
+        if (this.props.user.id) {
+            buttonMarkup = <input type="button" style={{float: 'right', width: '100px' }} value="update" onClick={this.updateUser.bind(this)} />
+        } else {
+            buttonMarkup = <input type="button" style={{float: 'right', width: '100px' }} value="add" onClick={this.addUserToList.bind(this)} />;
+        }
         return (
             <div className="sub-content-area" style={{display: 'inline-block', float: 'left', borderRight: '2px solid grey', padding: '30px 40px'}}>
                 <form>
@@ -154,9 +160,8 @@ export class FormContent extends React.Component {
                     <InputField fieldName="age" value={this.props.user && this.props.user.age}  />
                     <InputField fieldName="contact" value={this.props.user && this.props.user.contact}  />
 
-                    <div style={{clear: 'both', margin: '0 auto', padding: '10px 0'}}>
-                        <input type="button" value="save After edit" disabled={!this.props.user.id} onClick={this.updateUser.bind(this)} style={{width: '100px'}}/>
-                        <input type="button" value="add" onClick={this.addUserToList.bind(this)} style={{width: '100px'}}/>
+                    <div className="button-container" style={{clear: 'both', margin: '0 auto', padding: '20px 0'}}>
+                        {buttonMarkup}
                     </div>                        
                 </form>
             </div>
@@ -187,7 +192,7 @@ export class Listview extends React.Component {
           });
       
         return (
-            <div className="sub-content-area" style={{display: 'inline-block', float: 'left', padding: '30px 40px'}}>
+            <div className="sub-content-area" style={{display: 'inline-block', textAlign: 'left', width: '65%', float: 'left', padding: '30px 40px'}}>
                 <h1>List view content</h1>
                 <ul>
                     {listItems}
@@ -207,10 +212,18 @@ export class InputField extends React.Component {
         this.setState({value: event.target.value});
     }
     render () {
+        let inputType = undefined;
+            if (this.props.fieldName == 'age') {
+                inputType = <input style={{float: 'right'}} type="number" id={this.props.fieldName} value={this.props.value} onChange={this.handleChange} />
+            }else if(this.props.fieldName == 'email') {
+                inputType = <input style={{float: 'right'}} type="email" id={this.props.fieldName} value={this.props.value} onChange={this.handleChange} />
+            } else {
+                inputType = <input style={{float: 'right'}} type="text" id={this.props.fieldName} value={this.props.value} onChange={this.handleChange} />
+            }
         return (
             <div className="input-field" style={{clear: 'both', padding: '10px 0'}}>
                 <label style={{float: 'left'}}>Enter {this.props.fieldName} </label>
-                <input style={{float: 'right'}} type="text" id={this.props.fieldName} value={this.props.value} onChange={this.handleChange} />
+                {inputType}
             </div>
         );
     }
