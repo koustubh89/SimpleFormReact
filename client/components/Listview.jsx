@@ -45,10 +45,9 @@ export class Listview extends React.Component {
                 <div className="sub-content-area" style={{display: 'inline-block', textAlign: 'left', width: '65%', float: 'left', padding: '30px 40px'}}>
                     <h1>List view content</h1>
                     <SearchBar search={this.filter.bind(this)}/>
-                    <span>Sorry! no list item matches the search string. </span>
+                    <span> No user in the list </span>
                 </div>
             )
         }
-        
     }
 }

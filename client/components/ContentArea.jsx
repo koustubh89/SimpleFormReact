@@ -5,13 +5,17 @@ import {Listview} from './Listview.jsx';
 export class ContentArea extends React.Component {
     constructor() {
         super();
-        this.state = ({userList: [], currentUser: {}});
+        this.state = ({userList: [], currentUser: {}, filteredList: []});
         this.addTolist = this.addTolist.bind(this);
         this.removeFromList = this.removeFromList.bind(this);
         this.updateUser = this.updateUser.bind(this);
         this.editElem = this.editElem.bind(this);
         this.clearCurrentUser = this.clearCurrentUser.bind(this);
         this.filterUserList = this.filterUserList.bind(this);
+        this.updateUserList = this.updateUserList.bind(this);
+    }
+    updateUserList(list) {
+        this.setState({userList: list, filteredList: list});
     }
     filterUserList(searchStr) {
         console.log('recieved search str as ', searchStr);
@@ -27,9 +31,9 @@ export class ContentArea extends React.Component {
                     }
                 }
             }
-            this.setState({'userList': resultList});
+            this.setState({'filteredList': resultList});
         } else {
-            this.setState({'userList': fullList});
+            this.setState({'filteredList': fullList});
         }
     }
     clearCurrentUser() {
@@ -59,15 +63,18 @@ export class ContentArea extends React.Component {
         newlist = newlist.filter((elem) => {
             return elem.id !== removeElemWithId;
         });
-        this.setState({userList: newlist});
+        this.updateUserList(newList);
+        //this.setState({userList: newlist});
     }
 
     addTolist(newElement) {
         let length = this.state.userList.length;
         newElement.id = length + 1;
-        this.setState({
-            userList: this.state.userList.concat([newElement])
-        });
+        // this.setState({
+        //     userList: this.state.userList.concat([newElement])
+        // });
+        let list = this.state.userList.concat([newElement]);
+        this.updateUserList(list);
     }
     updateUser(updatedUser) {
         console.log('update user with', updatedUser);
@@ -94,11 +101,11 @@ export class ContentArea extends React.Component {
         return (
             <div className="content-area">
                 <div className="form-area">
-                    <FormContent list={this.state.userList} add={this.addTolist} update={this.updateUser} user={this.state.currentUser} clearUser={this.clearCurrentUser}/>
+                    <FormContent list={this.state.filteredList} add={this.addTolist} update={this.updateUser} user={this.state.currentUser} clearUser={this.clearCurrentUser}/>
                 </div>
 
                 <div className="list-view">
-                    <Listview list={this.state.userList} delete={this.removeFromList} edit={this.editElem} filterListView={this.filterUserList}/>
+                    <Listview list={this.state.filteredList} delete={this.removeFromList} edit={this.editElem} filterListView={this.filterUserList}/>
                 </div>
             </div>
         );
