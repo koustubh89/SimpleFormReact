@@ -10,7 +10,27 @@ export class ContentArea extends React.Component {
         this.removeFromList = this.removeFromList.bind(this);
         this.updateUser = this.updateUser.bind(this);
         this.editElem = this.editElem.bind(this);
-        this.clearCurrentUser = this.clearCurrentUser.bind(this)
+        this.clearCurrentUser = this.clearCurrentUser.bind(this);
+        this.filterUserList = this.filterUserList.bind(this);
+    }
+    filterUserList(searchStr) {
+        console.log('recieved search str as ', searchStr);
+        let fullList = this.state.userList;
+        if(searchStr.length > 0) {
+            let newList = this.state.userList;
+            let resultList = [];
+            for (var count = 0; count < newList.length; count++) {
+                for (let key in newList[count]) {
+                    if ( newList[count][key].toString().indexOf(searchStr) != -1) {
+                        resultList.push(newList[count]);
+                        break;
+                    }
+                }
+            }
+            this.setState({'userList': resultList});
+        } else {
+            this.setState({'userList': fullList});
+        }
     }
     clearCurrentUser() {
         this.setState({currentUser: {}});
@@ -78,7 +98,7 @@ export class ContentArea extends React.Component {
                 </div>
 
                 <div className="list-view">
-                    <Listview list={this.state.userList} delete={this.removeFromList} edit={this.editElem}/>
+                    <Listview list={this.state.userList} delete={this.removeFromList} edit={this.editElem} filterListView={this.filterUserList}/>
                 </div>
             </div>
         );
