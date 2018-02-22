@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import {FormContent} from './FormContent.jsx';
 import {Listview} from './Listview.jsx';
 
@@ -13,6 +14,21 @@ export class ContentArea extends React.Component {
         this.clearCurrentUser = this.clearCurrentUser.bind(this);
         this.filterUserList = this.filterUserList.bind(this);
         this.updateUserList = this.updateUserList.bind(this);
+
+    }
+    componentDidMount() {
+        this.getUserListFromServer();
+    }
+    getUserListFromServer() {
+        axios.get('http://127.0.0.1:1337/user/getUserList', {
+            headers: {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'}
+        })
+        .then((res) => {
+            console.log(res);
+            this.updateUserList(res.data);
+        }, (err) => {
+            console.log(err);
+        });
     }
     updateUserList(list) {
         this.setState({userList: list, filteredList: list});

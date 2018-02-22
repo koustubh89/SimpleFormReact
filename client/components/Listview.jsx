@@ -21,12 +21,12 @@ export class Listview extends React.Component {
         var listItems = this.props.list.map((item) => {
             return (
               <li key={item.id} style={{'width': '100%', textAlign: 'left', borderBottom: '1px solid black'}}>
-                <a href="{item.name}">{item.name}</a>
-                <span style={{marginLeft: '20px'}}>{item.email}</span>
-                <span style={{marginLeft: '20px'}}>{item.address}</span>
-                <span style={{marginLeft: '20px'}}>{item.contact}</span>
+                <a href="{item.name}"  style={{display: 'inline-block', width: '150px'}}>{item.name}</a>
+                <span style={{marginLeft: '20px', display: 'inline-block', width: '180px'}}>{item.email}</span>
+                <span style={{marginLeft: '20px', display: 'inline-block', width: '180px'}}>{item.address}</span>
+                <span style={{marginLeft: '20px', display: 'inline-block', width: '180px'}}>{item.contact}</span>
                 <span onClick={this.delete.bind(this, item.id)} style={{cursor: 'pointer', float: 'right'}}> delete </span>
-                <span onClick={this.edit.bind(this, item.id)} style={{cursor: 'pointer', float: 'right', paddingRight: '20px'}}> edit </span>
+                <span onClick={this.edit.bind(this, item.id)} style={{cursor: 'pointer',    float: 'right', paddingRight: '20px'}}> edit </span>
               </li>
             );
           });
