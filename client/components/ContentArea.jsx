@@ -69,9 +69,6 @@ export class ContentArea extends React.Component {
         if (index > -1) {
             user = newlist[index];
         }
-        //call the child function of form component from here
-        console.log('executing edit from parent');
-        //this.refs.child.bind(this, populateDetailsForEdit);
         this.setState({currentUser: user});
     }
     removeFromList(removeElemWithId){
@@ -84,17 +81,35 @@ export class ContentArea extends React.Component {
     }
 
     addTolist(newElement) {
-        let length = this.state.userList.length;
-        newElement.id = length + 1;
-        // this.setState({
-        //     userList: this.state.userList.concat([newElement])
+        /* local implementation
+            let length = this.state.userList.length;
+            newElement.id = length + 1;
+            let list = this.state.userList.concat([newElement]);
+            this.updateUserList(list);
+        */
+
+        /**
+         * server imlementation
+         */
+        axios.post('http://127.0.0.1:1337/user/add', newElement,
+        {
+            headers: {
+                'Content-Type': 'application/json',
+                //'X-CSRF-TOKEN': token
+            }
+        }
+        )
+        .then((res) => {
+            console.log('in post call', res);
+            this.getUserListFromServer();
+        }, (err) => {
+            console.log(err);
+        });
+        // axios.get('http://127.0.0.1:1337/csrfToken').then( res => {
+        //     let csrfToken = res.data._csrf
         // });
-        let list = this.state.userList.concat([newElement]);
-        this.updateUserList(list);
     }
     updateUser(updatedUser) {
-        console.log('update user with', updatedUser);
-        console.log('update user with', updatedUser);
         let newlist = this.state.userList;
         let index = undefined, user = undefined;     
         for(var i = 0; i < newlist.length; i += 1) {

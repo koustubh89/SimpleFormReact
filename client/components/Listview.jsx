@@ -18,7 +18,7 @@ export class Listview extends React.Component {
         this.props.delete(deleteElemWithId);
     }
     render () {
-        var listItems = this.props.list.map((item) => {
+        var listItems = this.props.list && this.props.list.map((item) => {
             return (
               <li key={item.id} style={{'width': '100%', textAlign: 'left', borderBottom: '1px solid black'}}>
                 <a href="{item.name}"  style={{display: 'inline-block', width: '150px'}}>{item.name}</a>
@@ -30,7 +30,7 @@ export class Listview extends React.Component {
               </li>
             );
           });
-        if (listItems.length > 0) {
+        if (listItems && listItems.length > 0) {
             return (
                 <div className="sub-content-area" style={{display: 'inline-block', textAlign: 'left', width: '65%', float: 'left', padding: '30px 40px'}}>
                     <h1>List view content</h1>
