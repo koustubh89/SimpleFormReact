@@ -72,12 +72,29 @@ export class ContentArea extends React.Component {
         this.setState({currentUser: user});
     }
     removeFromList(removeElemWithId){
-        let newlist = this.state.userList;
-        newlist = newlist.filter((elem) => {
-            return elem.id !== removeElemWithId;
-        });
-        this.updateUserList(newList);
+        /**
+         * fromt end implementation
+         let newlist = this.state.userList;
+         newlist = newlist.filter((elem) => {
+             return elem.id !== removeElemWithId;
+         });
+         this.updateUserList(newList);
+         * 
+         */
         //this.setState({userList: newlist});
+
+        /**
+         * with server side implementation
+         */
+        axios.delete('http://127.0.0.1:1337/user/delete/' + removeElemWithId, {
+            headers: {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'}
+        })
+        .then( res => {
+            console.log('res', res);
+            this.getUserListFromServer();
+        }, err => {
+            console.log('error', err);
+        });
     }
 
     addTolist(newElement) {
@@ -124,8 +141,23 @@ export class ContentArea extends React.Component {
             newlist[index] = updatedUser;
             newlist[index]['id'] = this.state.currentUser.id;
         }
-        //this.refs.child.bind(this, populateDetailsForEdit);
         this.setState({currentUser:  newlist[index]});
+
+
+        // axios.post('http://127.0.0.1:1337/user/add', newElement,
+        // {
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         //'X-CSRF-TOKEN': token
+        //     }
+        // }
+        // )
+        // .then((res) => {
+        //     console.log('in post call', res);
+        //     this.getUserListFromServer();
+        // }, (err) => {
+        //     console.log(err);
+        // });
     }
 
     render () {
