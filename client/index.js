@@ -1,7 +1,7 @@
 /* 
     ./client/index.js
 */
-import './styles/global.css';
+import './styles/global.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App.jsx';
