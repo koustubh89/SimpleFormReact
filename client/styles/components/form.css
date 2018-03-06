@@ -1,0 +1,16 @@
+.form-actions {
+    float: 'right';
+    width: '100px';
+}
+
+.sub-content-area {
+    float: left;
+    border-right: 2px solid grey;
+    padding: 30px 40px;
+}
+
+.button-container {
+    clear: both;
+    margin: 0 auto;
+    padding: 20px 0;
+}

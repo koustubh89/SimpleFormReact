@@ -42,9 +42,9 @@ export class FormContent extends React.Component {
     render () {
         let buttonMarkup = undefined;
         if (this.props.user.id) {
-            buttonMarkup = <input type="button" style={{float: 'right', width: '100px' }} value="update" onClick={this.updateUser.bind(this)} />
+            buttonMarkup = <input type="button" className="form-actions" value="update" onClick={this.updateUser.bind(this)} />
         } else {
-            buttonMarkup = <input type="button" style={{float: 'right', width: '100px' }} value="add" onClick={this.addUserToList.bind(this)} />;
+            buttonMarkup = <input type="button" className="form-actions" value="add" onClick={this.addUserToList.bind(this)} />;
         }
         return (
             <div className="sub-content-area" style={{display: 'inline-block', float: 'left', borderRight: '2px solid grey', padding: '30px 40px'}}>
