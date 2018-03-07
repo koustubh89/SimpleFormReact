@@ -1,5 +1,8 @@
 import React from 'react';
 import {InputField} from './InputField.jsx';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import {DialogExampleSimple} from './modal.jsx';
+
 
 export class FormContent extends React.Component {
     constructor(props) {
@@ -59,7 +62,10 @@ export class FormContent extends React.Component {
 
                     <div className="button-container" style={{clear: 'both', margin: '0 auto', padding: '20px 0'}}>
                         {buttonMarkup}
-                    </div>                        
+                    </div>
+                    <MuiThemeProvider >
+                        <DialogExampleSimple />                   
+                    </MuiThemeProvider >
                 </form>
             </div>
         );
