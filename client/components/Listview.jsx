@@ -1,5 +1,8 @@
+import '../styles/components/listView.scss';
 import React from 'react';
 import {SearchBar} from './SearchBar.jsx';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import {DialogExampleSimple} from './modal.jsx';
 
 
 export class Listview extends React.Component {
@@ -20,13 +23,19 @@ export class Listview extends React.Component {
     render () {
         var listItems = this.props.list && this.props.list.map((item) => {
             return (
-              <li key={item.id} style={{'width': '100%', textAlign: 'left', borderBottom: '1px solid black'}}>
+              <li key={item.id} className="user-list-item" style={{'width': '100%', textAlign: 'left', borderBottom: '1px solid black'}}>
                 <a href="{item.name}"  style={{display: 'inline-block', width: '150px'}}>{item.name}</a>
-                <span style={{marginLeft: '20px', display: 'inline-block', width: '180px'}}>{item.email}</span>
-                <span style={{marginLeft: '20px', display: 'inline-block', width: '180px'}}>{item.address}</span>
-                <span style={{marginLeft: '20px', display: 'inline-block', width: '180px'}}>{item.contact}</span>
-                <span onClick={this.delete.bind(this, item.id)} style={{cursor: 'pointer', float: 'right'}}> delete </span>
-                <span onClick={this.edit.bind(this, item.id)} style={{cursor: 'pointer',    float: 'right', paddingRight: '20px'}}> edit </span>
+                <span className="item-details">{item.email}</span>
+                <span className="item-details">{item.address}</span>
+                <span className="item-details">{item.contact}</span>
+                <MuiThemeProvider >
+                    <DialogExampleSimple buttonlabel="edit"/>
+                </MuiThemeProvider >
+                <MuiThemeProvider >
+                    <DialogExampleSimple buttonlabel="delete"/>        
+                </MuiThemeProvider >
+                {/* <span onClick={this.delete.bind(this, item.id)} style={{cursor: 'pointer', float: 'right'}}> delete </span>
+                <span onClick={this.edit.bind(this, item.id)} style={{cursor: 'pointer',    float: 'right', paddingRight: '20px'}}> edit </span> */}
               </li>
             );
           });

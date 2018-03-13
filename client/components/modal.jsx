@@ -44,7 +44,7 @@ export class DialogExampleSimple extends React.Component {
 
     return (
       <div>
-        <RaisedButton label="Add User" onClick={this.handleOpen} />
+        <RaisedButton label={this.props.buttonlabel} onClick={this.handleOpen} />
         <Dialog
           title="Dialog With Actions"
           actions={actions}
