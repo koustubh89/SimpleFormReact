@@ -5,7 +5,7 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Headerbar } from './HeaderBar.jsx';
 import { ContentArea } from './ContentArea.jsx';
-import {About} from './About.jsx';
+import { About } from './About.jsx';
 
 // const Home = () => {
 //   console.log('rendering this space');
