@@ -64,7 +64,7 @@ export class FormContent extends React.Component {
                         {buttonMarkup}
                     </div>
                     <MuiThemeProvider >
-                        <DialogExampleSimple />        
+                        <DialogExampleSimple buttonlabel="add"/>
                     </MuiThemeProvider >
                 </form>
             </div>

@@ -14,7 +14,6 @@ export class ContentArea extends React.Component {
         this.clearCurrentUser = this.clearCurrentUser.bind(this);
         this.filterUserList = this.filterUserList.bind(this);
         this.updateUserList = this.updateUserList.bind(this);
-
     }
     componentDidMount() {
         this.getUserListFromServer();
