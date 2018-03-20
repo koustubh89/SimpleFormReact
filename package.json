@@ -20,7 +20,7 @@
     "webpack-dev-server": "^3.1.0"
   },
   "scripts": {
-    "start": "webpack-dev-server --mode development"
+    "start": "webpack-dev-server --mode development --history-api-fallback"
   },
   "devDependencies": {
     "axios": "^0.18.0",
