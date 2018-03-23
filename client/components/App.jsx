@@ -8,9 +8,13 @@ import { ContentArea } from './ContentArea.jsx';
 import About from './About.jsx';
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    console.log(props);
+  }
   render() {
     return (
-    <div style={{textAlign: 'center'}}>
+      <div style={{textAlign: 'center'}}>
         <Headerbar />
         <BrowserRouter>
           <Switch>
@@ -20,6 +24,7 @@ export default class App extends React.Component {
               exact path="/about" component={About} />
           </Switch>
         </BrowserRouter>
-    </div>);
+      </div>
+    );
   }
 }
