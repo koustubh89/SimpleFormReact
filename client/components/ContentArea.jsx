@@ -2,6 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import {FormContent} from './FormContent.jsx';
 import {Listview} from './Listview.jsx';
+import '../styles/components/contentArea.scss';
+
 
 export class ContentArea extends React.Component {
     constructor() {

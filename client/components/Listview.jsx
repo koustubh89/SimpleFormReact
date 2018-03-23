@@ -41,7 +41,7 @@ export class Listview extends React.Component {
           });
         if (listItems && listItems.length > 0) {
             return (
-                <div className="sub-content-area" style={{display: 'inline-block', textAlign: 'left', width: '65%', float: 'left', padding: '30px 40px'}}>
+                <div className="sub-content-area" >
                     <h1>List view content</h1>
                     <SearchBar search={this.filter.bind(this)}/>
                     <ul style={{display: 'inline-block'}}>
@@ -51,7 +51,7 @@ export class Listview extends React.Component {
             );
         } else {
             return (
-                <div className="sub-content-area" style={{display: 'inline-block', textAlign: 'left', width: '65%', float: 'left', padding: '30px 40px'}}>
+                <div className="sub-content-area" >
                     <h1>List view content</h1>
                     <SearchBar search={this.filter.bind(this)}/>
                     <span> No user in the list </span>

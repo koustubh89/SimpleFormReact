@@ -50,7 +50,7 @@ export class FormContent extends React.Component {
             buttonMarkup = <input type="button" className="form-actions" value="add" onClick={this.addUserToList.bind(this)} />;
         }
         return (
-            <div className="sub-content-area" style={{display: 'inline-block', float: 'left', borderRight: '2px solid grey', padding: '30px 40px'}}>
+            <div className="sub-content-area">
                 <form>
                     <h1>Enter user details</h1>
 

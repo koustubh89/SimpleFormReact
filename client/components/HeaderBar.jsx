@@ -15,9 +15,9 @@ export class Headerbar extends React.Component {
                     <h1 className="header-text">Simple User List</h1>
                 </div>
                 <div className="links">
-                    <a href="/about" style={{float:"right"}}>About</a>
-                    <a href="/home" style={{float:"right"}}>Home</a>
-                    <a href="/" style={{float:"right"}}>Content</a>
+                    <a href="/about" className="header-links" >About</a>
+                    <a href="/home" className="header-links" >Home</a>
+                    <a href="/" className="header-links" >Content</a>
                 </div>
             </div>
         );
