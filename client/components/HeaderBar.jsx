@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 export class Headerbar extends React.Component {
     constructor(props) {
         super(props);
-        console.log(this.props);
     }
     render () {
         return (

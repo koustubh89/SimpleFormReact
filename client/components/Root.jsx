@@ -11,7 +11,6 @@ export default class Root extends React.Component {
 	constructor(props) {
 		super(props);
 		this.store = configureStore();
-		console.log('root component called');
 	}
 
 	render() {
@@ -22,12 +21,3 @@ export default class Root extends React.Component {
 		)
 	}
 }
-
-// const mapStateToProps = state => {
-// 	return {
-// 		currentTime: state.currentTime
-// 	}
-// }
-// export default connect(
-// 	mapStateToProps
-// )(App);

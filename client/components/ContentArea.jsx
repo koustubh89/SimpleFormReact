@@ -25,7 +25,6 @@ export class ContentArea extends React.Component {
             headers: {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'}
         })
         .then((res) => {
-            console.log(res);
             this.updateUserList(res.data);
         }, (err) => {
             console.log(err);
