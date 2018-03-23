@@ -16,9 +16,8 @@ export class Headerbar extends React.Component {
                 </div>
                 <div className="links">
                     <a href="/about" style={{float:"right"}}>About</a>
-                    <a href="/" style={{float:"right"}}>Home</a>
-                    {/* <Link to="/">Home</Link>
-                    <Link to="/about">About</Link> */}
+                    <a href="/home" style={{float:"right"}}>Home</a>
+                    <a href="/" style={{float:"right"}}>Content</a>
                 </div>
             </div>
         );
