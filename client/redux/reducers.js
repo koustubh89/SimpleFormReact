@@ -1,4 +1,4 @@
-import types from './types';
+import types from './actionCreators';
 
 // Initial (starting) state
 const initialState = {

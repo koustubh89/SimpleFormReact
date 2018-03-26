@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import App from './App.jsx';
